@@ -15,16 +15,16 @@ public:
 		}
         for(int i = 1; i <= numberOfitem; i++){
             for(int j = 1; j <= capacity; j++){
-				if(weight[i] > j){
+				if(weight[i-1] > j){
 					dp[i][j] = dp[i-1][j];
 				}
 				else{
-					dp[i][j] =  max(dp[i-1][j], (value[i] +dp[i-1][j-weight[i]]));
-					maxvalue = max(maxvalue, dp[i][j]);
-				}    
+					dp[i][j] =  max(dp[i-1][j], (value[i-1] +dp[i-1][j-weight[i-1]]));
+					
+				}
             }
         }
-		return  maxvalue;
+		return  dp[numberOfitem][capacity];
     }
 };
 int main(){
@@ -32,17 +32,14 @@ int main(){
     int capacity;
     cin>>numberOfitem;
 	cin>>capacity;
-	cout<<endl;
     vector<int>weight(numberOfitem);
     vector<int>value(numberOfitem);
     for(int i = 0; i < numberOfitem; i++){
         cin>>weight[i];
     }
-    cout<<endl;
     for(int i = 0; i < numberOfitem; i++){
         cin>>value[i];
     }
-    cout<<endl;
     Solution s1;
     int maxvalueOfBage_answer = s1.maxvalueOfBage(numberOfitem,capacity,weight,value);
     cout<<maxvalueOfBage_answer<<endl;
